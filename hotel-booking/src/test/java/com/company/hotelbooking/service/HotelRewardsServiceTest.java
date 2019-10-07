@@ -41,7 +41,7 @@ public class HotelRewardsServiceTest {
                 new BigDecimal("0.1"),
                 2000,
                 true,
-                new BigDecimal("180.0"),
+                new BigDecimal("180.000"),
                 4000
         );
         rewards = new Rewards(
