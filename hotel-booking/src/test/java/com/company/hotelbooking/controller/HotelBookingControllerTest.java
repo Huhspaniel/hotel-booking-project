@@ -52,7 +52,7 @@ public class HotelBookingControllerTest {
                 new BigDecimal("0.1"),
                 2000,
                 true,
-                new BigDecimal("180.0"),
+                new BigDecimal("180.00"),
                 4000
         );
         Rewards rewards = new Rewards(
@@ -85,11 +85,11 @@ public class HotelBookingControllerTest {
     public void getBookingInfoReturn404() throws Exception {
         HotelRewardsView view = new HotelRewardsView();
 
-        when(service.getRewardsInfo("999", true,true)).thenThrow(new IllegalArgumentException("Could not find room with matching Id"));
+        when(service.getRewardsInfo("999", false,false)).thenThrow(new IllegalArgumentException("Could not find room with matching Id"));
 
-        this.mockMvc.perform(get("/hotelRewards/123?rewardsMember=true&doubleBonusDay=true"))
+        this.mockMvc.perform(get("/hotelRewards/999"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
-        
+
     }
 }

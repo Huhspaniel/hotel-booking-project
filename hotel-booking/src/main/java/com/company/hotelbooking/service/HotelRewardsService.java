@@ -22,6 +22,7 @@ public class HotelRewardsService {
     }
 
     public Optional<HotelRewardsView> getRewardsInfo(String roomNumber, Boolean rewardsMember, Boolean doubleBonusDay) {
+        System.out.println("TEST TEST");
         Room room = roomClient.getRoom(roomNumber).orElse(null);
         if (room != null) {
             HotelRewardsView hrv = new HotelRewardsView();
