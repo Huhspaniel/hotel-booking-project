@@ -19,7 +19,7 @@ public class HotelRewardsService {
         this.roomClient = roomClient;
     }
 
-    public Optional<HotelRewardsView> getRewardsInfo(Integer roomId, Boolean rewardsMember, Boolean doubleBonusDay) {
+    public Optional<HotelRewardsView> getRewardsInfo(String roomNumber, Boolean rewardsMember, Boolean doubleBonusDay) {
         return Optional.empty();
     }
 }

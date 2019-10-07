@@ -65,7 +65,20 @@ public class HotelRewardsServiceTest {
     }
 
     @Test
-    public void testGetRewardsInfo() {
-        
+    public void getRewardsInfo_WithValidId_ShouldReturnOptionalOfHotelRewardsView() {
+        HotelRewardsView actual = service.getRewardsInfo(
+                view.getRoomNumber(), view.getRewardsMember(), view.getDoubleBonusDay()
+        ).orElse(null);
+
+        assertEquals(view, actual);
+    }
+
+    @Test
+    public void getRewardsInfo_WithInvalidId_ShouldReturnEmptyOptional() {
+        HotelRewardsView actual = service.getRewardsInfo(
+                "889", view.getRewardsMember(), view.getDoubleBonusDay()
+        ).orElse(null);
+
+        assertNull(actual);
     }
 }
