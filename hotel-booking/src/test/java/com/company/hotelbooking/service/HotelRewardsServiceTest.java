@@ -6,6 +6,7 @@ import com.company.hotelbooking.util.feign.RewardsClient;
 import com.company.hotelbooking.util.feign.RoomClient;
 import com.company.hotelbooking.viewmodel.HotelRewardsView;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,8 +28,10 @@ public class HotelRewardsServiceTest {
     @Mock
     private RoomClient roomClient;
 
-    @Before
-    public void setUp() {
+    private static HotelRewardsView view;
+    private static Rewards rewards;
+    private static Room room;
+    static {
         HotelRewardsView view = new HotelRewardsView(
                 "123",
                 "room type",
@@ -53,8 +56,16 @@ public class HotelRewardsServiceTest {
                 view.getRoomType(),
                 view.getBaseRate()
         );
+    }
 
+    @Before
+    public void setUp() {
         when(rewardsClient.getRewards(view.getRoomType())).thenReturn(rewards);
         when(roomClient.getRoom(view.getRoomNumber())).thenReturn(Optional.of(room));
+    }
+
+    @Test
+    public void testGetRewardsInfo() {
+        
     }
 }
