@@ -14,9 +14,9 @@ public class HotelBookingController {
 
     HotelRewardsService service;
 
-    @GetMapping("/hotelRewards/{roomId}?rewardsMember=[true|false]&doubleBonusDay=[true|false]")
+    @GetMapping("/hotelRewards/{roomId}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<HotelRewardsView> getBookingInfo(@PathVariable int roomId, @PathParam("rewardsMember") boolean rewardsMember, @PathParam("doubleBonusDay") boolean doubleBonusDay){
+    public Optional<HotelRewardsView> getBookingInfo(@PathVariable String roomId, @RequestParam(value = "rewardsMember",required = false) boolean rewardsMember, @RequestParam(value = "doubleBonusDay",required = false) boolean doubleBonusDay){
         return service.getRewardsInfo(roomId, rewardsMember, doubleBonusDay);
     }
 
