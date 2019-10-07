@@ -32,7 +32,7 @@ public class HotelRewardsServiceTest {
     private static Rewards rewards;
     private static Room room;
     static {
-        HotelRewardsView view = new HotelRewardsView(
+        view = new HotelRewardsView(
                 "123",
                 "room type",
                 true,
@@ -44,14 +44,14 @@ public class HotelRewardsServiceTest {
                 new BigDecimal("180.0"),
                 4000
         );
-        Rewards rewards = new Rewards(
+        rewards = new Rewards(
                 1,
                 view.getRoomType(),
                 view.getMemberDiscount(),
                 view.getBaseRewardsPoints(),
                 view.getCanDouble()
         );
-        Room room = new Room(
+        room = new Room(
                 view.getRoomNumber(),
                 view.getRoomType(),
                 view.getBaseRate()
