@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class HotelRewardsView {
 
-    private Integer roomNumber;
+    private String roomNumber;
     private String roomType;
     private Boolean rewardsMember;
     private Boolean doubleBonusDay;
@@ -19,7 +19,7 @@ public class HotelRewardsView {
     public HotelRewardsView() {
     }
 
-    public HotelRewardsView(Integer roomNumber, String roomType, Boolean rewardsMember, Boolean doubleBonusDay, BigDecimal baseRate, BigDecimal memberDiscount, Integer baseRewardsPoints, Boolean canDouble, BigDecimal finalCost, Integer totalRewardsPoints) {
+    public HotelRewardsView(String roomNumber, String roomType, Boolean rewardsMember, Boolean doubleBonusDay, BigDecimal baseRate, BigDecimal memberDiscount, Integer baseRewardsPoints, Boolean canDouble, BigDecimal finalCost, Integer totalRewardsPoints) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.rewardsMember = rewardsMember;
@@ -32,11 +32,11 @@ public class HotelRewardsView {
         this.totalRewardsPoints = totalRewardsPoints;
     }
 
-    public Integer getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(Integer roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 

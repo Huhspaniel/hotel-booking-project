@@ -5,24 +5,24 @@ import java.util.Objects;
 
 public class Room {
 
-    private Integer number;
+    private String number;
     private String roomType;
     private BigDecimal baseRate;
 
     public Room() {
     }
 
-    public Room(Integer number, String roomType, BigDecimal baseRate) {
+    public Room(String number, String roomType, BigDecimal baseRate) {
         this.number = number;
         this.roomType = roomType;
         this.baseRate = baseRate;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

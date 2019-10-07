@@ -10,5 +10,5 @@ import java.util.Optional;
 @FeignClient("room-service")
 public interface RoomClient {
     @GetMapping("/room/{number}")
-    public Optional<Room> getRoom(@PathVariable Integer number);
+    public Optional<Room> getRoom(@PathVariable String number);
 }
