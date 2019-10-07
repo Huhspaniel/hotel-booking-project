@@ -6,6 +6,7 @@ import com.company.hotelbooking.util.feign.RewardsClient;
 import com.company.hotelbooking.util.feign.RoomClient;
 import com.company.hotelbooking.viewmodel.HotelRewardsView;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,9 +28,11 @@ public class HotelRewardsServiceTest {
     @Mock
     private RoomClient roomClient;
 
-    @Before
-    public void setUp() {
-        HotelRewardsView view = new HotelRewardsView(
+    private static HotelRewardsView view;
+    private static Rewards rewards;
+    private static Room room;
+    static {
+        view = new HotelRewardsView(
                 "123",
                 "room type",
                 true,
@@ -41,20 +44,41 @@ public class HotelRewardsServiceTest {
                 new BigDecimal("180.0"),
                 4000
         );
-        Rewards rewards = new Rewards(
+        rewards = new Rewards(
                 1,
                 view.getRoomType(),
                 view.getMemberDiscount(),
                 view.getBaseRewardsPoints(),
                 view.getCanDouble()
         );
-        Room room = new Room(
+        room = new Room(
                 view.getRoomNumber(),
                 view.getRoomType(),
                 view.getBaseRate()
         );
+    }
 
+    @Before
+    public void setUp() {
         when(rewardsClient.getRewards(view.getRoomType())).thenReturn(rewards);
         when(roomClient.getRoom(view.getRoomNumber())).thenReturn(Optional.of(room));
+    }
+
+    @Test
+    public void getRewardsInfo_WithValidId_ShouldReturnOptionalOfHotelRewardsView() {
+        HotelRewardsView actual = service.getRewardsInfo(
+                view.getRoomNumber(), view.getRewardsMember(), view.getDoubleBonusDay()
+        ).orElse(null);
+
+        assertEquals(view, actual);
+    }
+
+    @Test
+    public void getRewardsInfo_WithInvalidId_ShouldReturnEmptyOptional() {
+        HotelRewardsView actual = service.getRewardsInfo(
+                "889", view.getRewardsMember(), view.getDoubleBonusDay()
+        ).orElse(null);
+
+        assertNull(actual);
     }
 }
