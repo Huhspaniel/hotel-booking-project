@@ -1,7 +1,6 @@
 package com.company.hotelbooking.util.feign;
 
 import com.company.hotelbooking.model.Room;
-import feign.FeignException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,9 @@ public class RoomClientTest {
         assertEquals(expectedRoom, roomFromClient.get());
     }
 
-    @Test(expected = FeignException.NotFound.class)
-    public void getRoomShouldThrowFeignExceptionIfRoomNotValid() {
-        roomClient.getRoom("9999");
+    @Test
+    public void getRooomShouldReturnEmptyOptionalIfInvalidInput() {
+        Optional<Room> room = roomClient.getRoom("9999");
+        assertEquals(Optional.empty(), room);
         }
     }

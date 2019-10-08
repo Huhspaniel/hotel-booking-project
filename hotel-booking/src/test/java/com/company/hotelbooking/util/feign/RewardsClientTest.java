@@ -31,7 +31,7 @@ public class RewardsClientTest {
         assertEquals(expectedRewards, rewardsFromClient);
     }
 
-    @Test(expected = FeignException.NotFound.class)
+   @Test(expected = FeignException.NotFound.class)
     public void shouldReturnExceptionWithInvalidInput() {
         rewardsClient.getRewards("GARBAGECHUTE");
     }
