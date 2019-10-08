@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -55,41 +56,26 @@ public class HotelBookingControllerTest {
                 new BigDecimal("180.00"),
                 4000
         );
-        Rewards rewards = new Rewards(
-                1,
-                view.getRoomType(),
-                view.getMemberDiscount(),
-                view.getBaseRewardsPoints(),
-                view.getCanDouble()
-        );
-        Room room = new Room(
-                view.getRoomNumber(),
-                view.getRoomType(),
-                view.getBaseRate()
-        );
 
         String outputJson = mapper.writeValueAsString(view);
 
-
-        when(service.getRewardsInfo("123", true, true)).thenReturn(java.util.Optional.of(view));
+        when(service.getRewardsInfo("123", true, true)).thenReturn(Optional.of(view));
 
         this.mockMvc.perform(get("/hotelRewards/123").param("rewardsMember","true").param("doubleBonusDay","true"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-//                .andDo(print())
-//                .andExpect(model().attributeHasNoErrors())
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(outputJson));
+                .andExpect(status().isOk())
+                .andExpect(content().json(outputJson));
     }
 
     @Test
     public void getBookingInfoReturn404() throws Exception {
-        HotelRewardsView view = new HotelRewardsView();
-
-        when(service.getRewardsInfo("999", false,false)).thenThrow(new IllegalArgumentException("Could not find room with matching Id"));
-
         this.mockMvc.perform(get("/hotelRewards/999"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
+    }
 
+    @Test
+    public void getBookingInfoReturn400() throws Exception {
+        this.mockMvc.perform(get("/hotelRewards/1?rewardsMember=asdf&doubleBonusDay=5544"))
+                .andExpect(status().isBadRequest());
     }
 }

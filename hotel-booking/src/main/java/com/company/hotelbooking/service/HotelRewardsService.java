@@ -41,7 +41,7 @@ public class HotelRewardsService {
             } else {
                 hrv.setFinalCost(hrv.getBaseRate());
             }
-            if (rewardsMember == false) {
+            if (!rewardsMember) {
                 hrv.setTotalRewardsPoints(0);
             } else if (doubleBonusDay && hrv.getCanDouble()) {
                 hrv.setTotalRewardsPoints(2 * hrv.getBaseRewardsPoints());

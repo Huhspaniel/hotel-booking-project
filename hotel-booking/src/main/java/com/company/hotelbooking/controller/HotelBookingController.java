@@ -14,12 +14,13 @@ import java.util.Optional;
 public class HotelBookingController {
 
     @Autowired
-    HotelRewardsService service;
+    private HotelRewardsService service;
 
     @GetMapping("/hotelRewards/{roomId}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<HotelRewardsView> getBookingInfo(@PathVariable String roomId, @RequestParam(defaultValue = "false") Boolean rewardsMember, @RequestParam(defaultValue = "false") Boolean doubleBonusDay){
-        return service.getRewardsInfo(roomId, rewardsMember, doubleBonusDay);
+    public HotelRewardsView getBookingInfo(@PathVariable String roomId, @RequestParam(required = false) boolean rewardsMember, @RequestParam(required = false) boolean doubleBonusDay) throws EntityNotFoundException {
+        return service.getRewardsInfo(roomId, rewardsMember, doubleBonusDay)
+                .orElseThrow(() -> new EntityNotFoundException("Room number " + roomId + " does not exist"));
     }
 
 }
