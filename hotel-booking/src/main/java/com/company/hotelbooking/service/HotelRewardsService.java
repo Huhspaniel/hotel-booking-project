@@ -22,6 +22,7 @@ public class HotelRewardsService {
     }
 
     public Optional<HotelRewardsView> getRewardsInfo(String roomNumber, Boolean rewardsMember, Boolean doubleBonusDay) {
+        System.out.println("TEST TEST");
         Room room = roomClient.getRoom(roomNumber).orElse(null);
         if (room != null) {
             HotelRewardsView hrv = new HotelRewardsView();
@@ -40,7 +41,7 @@ public class HotelRewardsService {
             } else {
                 hrv.setFinalCost(hrv.getBaseRate());
             }
-            if (rewardsMember == false) {
+            if (!rewardsMember) {
                 hrv.setTotalRewardsPoints(0);
             } else if (doubleBonusDay && hrv.getCanDouble()) {
                 hrv.setTotalRewardsPoints(2 * hrv.getBaseRewardsPoints());
