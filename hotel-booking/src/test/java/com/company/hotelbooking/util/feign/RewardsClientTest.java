@@ -1,6 +1,7 @@
 package com.company.hotelbooking.util.feign;
 
 import com.company.hotelbooking.model.Rewards;
+import feign.FeignException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class RewardsClientTest {
     RewardsClient rewardsClient;
 
     @Test
-    public void getRewards() {
+    public void shouldReturnRewardWithValidInput() {
 
         Rewards expectedRewards = new Rewards(1,
                 "double",
@@ -28,5 +29,10 @@ public class RewardsClientTest {
 
         Rewards rewardsFromClient = rewardsClient.getRewards("double");
         assertEquals(expectedRewards, rewardsFromClient);
+    }
+
+    @Test(expected = FeignException.NotFound.class)
+    public void shouldReturnExceptionWithInvalidInput() {
+        rewardsClient.getRewards("GARBAGECHUTE");
     }
 }
